@@ -2147,6 +2147,7 @@ if(document.fonts&&document.fonts.load){
   Promise.all([document.fonts.load('64px Bangers'),document.fonts.load('20px "Patrick Hand"')]).then(()=>redraws.forEach(f=>f())).catch(()=>{});
 }
 requestAnimationFrame(loop);
+window.INK={NET,P,B,score,names,stats,get state(){return state;}};
 })();
 </script>
 
