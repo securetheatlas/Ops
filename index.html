@@ -1413,9 +1413,9 @@ function makeM4View(){
   lh.position.set(.55,-.002,0);lh.rotation.z=-Math.PI/2;
   forearm(lhG,lh,V3(.28,-.34,-.24),true);
   // reload keyframes: [t, hand dx,dy,dz, rx,ry,rz, magFollow, gun rx,rz,dy]
-  const RK=[[0,0,0,0,0,0,0,0,0,0,0],[.14,-.17,-.13,.02,0,0,.35,0,.1,.3,-.04],[.3,-.2,-.4,.09,0,0,.55,1,.1,.3,-.04],[.42,-.22,-.44,.1,0,0,.6,1,.1,.3,-.04],
-    [.58,-.17,-.13,.02,0,0,.35,1,.1,.3,-.04],[.65,-.16,-.11,.02,0,0,.3,0,.1,.3,-.04],[.76,-.3,.07,-.02,0,0,-.2,0,.05,.2,-.03],[.84,-.37,.08,-.02,0,0,-.2,0,.05,.2,-.03],
-    [.9,-.3,.07,-.02,0,0,-.2,0,.05,.2,-.03],[1,0,0,0,0,0,0,0,0,0,0]];
+  const RK=[[0,0,0,0,0,0,0,0,0,0,0],[.14,-.17,-.13,.02,0,0,.35,0,-.06,-.35,.06],[.3,-.2,-.4,.09,0,0,.55,1,-.06,-.35,.06],[.42,-.22,-.44,.1,0,0,.6,1,-.06,-.35,.06],
+    [.58,-.17,-.13,.02,0,0,.35,1,-.06,-.35,.06],[.65,-.16,-.11,.02,0,0,.3,0,-.06,-.35,.06],[.76,-.3,.07,-.02,0,0,-.2,0,-.03,-.2,.05],[.84,-.37,.08,-.02,0,0,-.2,0,-.03,-.2,.05],
+    [.9,-.3,.07,-.02,0,0,-.2,0,-.03,-.2,.05],[1,0,0,0,0,0,0,0,0,0,0]];
   return {g:W.g,mag:W.mag,eject:W.eject,flash:vFlash(I,W.muzzle,.2),hip:[.16,-.165,-.37],ads:[0,-.086,-.3],adsFov:50,lh:lhG,rk:RK,grab:[-.17,-.13,.02]};
 }
 function makePistolView(){
@@ -1432,8 +1432,8 @@ function makePistolView(){
   lh.position.set(.026,-.15,0);lh.rotation.z=-Math.PI/2;
   forearm(lhG,lh,V3(-.1,-.42,-.2));
   // [t, hand dx,dy,dz, rx,ry,rz, magFollow, gun rx,rz,dy]  (hand rests at the magazine base)
-  const RK=[[0,0,-.4,0,0,0,0,0,0,0,0],[.12,0,-.4,0,0,0,0,0,.12,.35,-.03],[.32,0,-.4,0,0,0,0,1,.12,.35,-.03],[.55,0,0,0,0,0,0,1,.12,.35,-.03],[.62,0,.01,0,0,0,0,0,.12,.35,-.03],
-    [.74,.1,-.1,-.01,0,0,Math.PI,0,.05,.15,-.02],[.82,.04,-.1,-.01,0,0,Math.PI,0,.05,.15,-.02],[.9,.1,-.1,-.01,0,0,Math.PI,0,.05,.15,-.02],[1,0,-.4,0,0,0,0,0,0,0,0]];
+  const RK=[[0,0,-.4,0,0,0,0,0,0,0,0],[.12,0,-.4,0,0,0,0,0,-.06,-.35,.05],[.32,0,-.4,0,0,0,0,1,-.06,-.35,.05],[.55,0,0,0,0,0,0,1,-.06,-.35,.05],[.62,0,.01,0,0,0,0,0,-.06,-.35,.05],
+    [.74,.1,-.1,-.01,0,0,Math.PI,0,-.03,-.15,.04],[.82,.04,-.1,-.01,0,0,Math.PI,0,-.03,-.15,.04],[.9,.1,-.1,-.01,0,0,Math.PI,0,-.03,-.15,.04],[1,0,-.4,0,0,0,0,0,0,0,0]];
   return {g:W.g,mag:W.mag,eject:W.eject,flash:vFlash(I,W.muzzle,.14),hip:[.13,-.14,-.34],ads:[0,-.042,-.3],adsFov:62,lh:lhG,lhHide:true,rk:RK,grab:[0,0,0],magDrop:[.1,.3]};
 }
 function makeKnifeView(){
@@ -1792,7 +1792,7 @@ function updateVM(dt){
   const sp=P.sprintBlend;x-=.05*sp;y-=.04*sp;ry+=.75*sp;rx-=.2*sp;rz+=.15*sp;
   z+=P.kick*(P.cur===1?.035:.045);rx+=P.kick*(P.cur===1?.2:.07)*(1-a*.5);
   if(P.switchT>0){const s=P.switchT>.16?(.32-P.switchT)/.16:P.switchT/.16;y-=s*.32;rx-=s*.9;}
-  if(P.reloadT>0&&V.rk){const w=WEAPONS[P.cur];const t=clamp(1-P.reloadT/w.reload,0,1);const f=reloadPose(V,t);V.g.rotation.set(f[0],0,f[1]);y+=f[2];x-=.02*Math.sin(Math.PI*t);}
+  if(P.reloadT>0&&V.rk){const w=WEAPONS[P.cur];const t=clamp(1-P.reloadT/w.reload,0,1);const f=reloadPose(V,t);V.g.rotation.set(f[0],0,f[1]);y+=f[2];x-=.07*Math.sin(Math.PI*Math.min(1,t*1.2));}
   else if(V.rk){V.g.rotation.set(0,0,0);if(V.lh){V.lh.position.set(0,0,0);V.lh.rotation.set(0,0,0);V.lh.visible=!V.lhHide;}if(V.mag)V.mag.position.set(0,0,0);}
   if(P.cur===2&&P.swingT>0){const k=1-P.swingT/.45;const s=k<.25?k/.25:k<.55?1-(k-.25)/.3*2:-1+(k-.55)/.45;
     x+=s*.14;ry+=s*.9;rz-=s*.5;y+=Math.abs(s)*.03;if(k>.25&&k<.55)z-=.07;}
