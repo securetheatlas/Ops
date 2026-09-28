@@ -1301,7 +1301,7 @@ function buildM4(detail){
   cyl(I,.012,.012,.004,1.009,.005,0,MAT.rubber,'x',10);
   // holographic sight on the receiver
   bx(I,.074,.012,.04,.335,.053,0,BLK);                                          // base
-  bx(I,.02,.026,.036,.305,.072,0,FDE2);                                         // battery cap (tan)
+  bx(I,.022,.014,.036,.303,.066,0,FDE2);                                        // battery cap (tan, below the window)
   for(const sz of [-1,1])bx(I,.05,.04,.004,.345,.079,sz*.019,BLK);              // hood sides
   bx(I,.05,.004,.042,.345,.101,0,BLK);                                          // hood top
   bx(I,.004,.04,.042,.372,.079,0,MAT.glass);                                     // front window
@@ -1310,9 +1310,9 @@ function buildM4(detail){
   if(detail){const ring=torus(I,.006,.0012,.352,.081,0,MAT.red,'x',12);const dot=new T.Mesh(new T.SphereGeometry(.0015,6,4),MAT.red);dot.position.set(.352,.081,0);I.add(dot);}
   // flip-up rear sight, laser box, folding front sight
   part(I,[[.255,.047],[.283,.047],[.281,.06],[.257,.06]],.024,BLK,.002);bx(I,.004,.012,.014,.269,.064,0,BLK2);
-  bx(I,.05,.024,.032,.62,.061,0,BLK);bx(I,.05,.006,.032,.62,.076,0,FDE2);cyl(I,.005,.005,.004,.646,.066,.008,MAT.lens,'x',8);bx(I,.008,.004,.008,.61,.08,0,BLK2);
-  part(I,[[.665,.047],[.695,.047],[.692,.062],[.668,.062]],.014,BLK,.002);bx(I,.003,.02,.003,.68,.072,0,BLK2);
-  for(const sz of [-1,1])bx(I,.01,.022,.003,.68,.072,sz*.008,BLK);
+  bx(I,.05,.016,.032,.62,.057,0,BLK);bx(I,.05,.005,.032,.62,.0675,0,FDE2);cyl(I,.005,.005,.004,.646,.06,.008,MAT.lens,'x',8);bx(I,.008,.003,.008,.61,.071,0,BLK2);
+  part(I,[[.665,.047],[.695,.047],[.692,.06],[.668,.06]],.014,BLK,.002);bx(I,.003,.016,.003,.68,.068,0,BLK2);
+  for(const sz of [-1,1])bx(I,.01,.018,.003,.68,.068,sz*.008,BLK);
   // sling loops
   torus(I,.008,.002,.46,-.03,.016,BLK2,'x',8);torus(I,.008,.002,.2,-.03,0,BLK2,'x',8);
   const muzzle=new T.Object3D();muzzle.position.set(1.012,.005,0);I.add(muzzle);
