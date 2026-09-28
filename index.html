@@ -196,7 +196,7 @@ button:focus-visible,input:focus-visible{outline:3px dashed var(--blue);outline-
       <kbd>R</kbd><span>Reload</span>
       <kbd>V</kbd><span>Quick knife</span>
       <kbd>SHIFT</kbd><span>Sprint</span>
-      <kbd>C</kbd><span>Crouch</span>
+      <kbd>CTRL</kbd><span>Crouch (C also works)</span>
       <kbd>SPACE</kbd><span>Jump (you can climb crates and car hoods)</span>
       <kbd>ESC</kbd><span>Pause</span>
     </div>
@@ -1703,7 +1703,7 @@ function updatePlayer(dt){
   }
   const w=WEAPONS[P.cur];
   let mx=0,mz=0;if(keys.KeyW||keys.ArrowUp)mz+=1;if(keys.KeyS||keys.ArrowDown)mz-=1;if(keys.KeyD||keys.ArrowRight)mx+=1;if(keys.KeyA||keys.ArrowLeft)mx-=1;
-  P.crouch=approach(P.crouch,keys.KeyC?1:0,dt*7);
+  P.crouch=approach(P.crouch,(keys.ControlLeft||keys.ControlRight||keys.KeyC)?1:0,dt*7);
   const wantAds=mouseR&&P.reloadT<=0&&P.switchT<=0&&!w.melee;
   P.sprinting=!!(keys.ShiftLeft||keys.ShiftRight)&&mz>0&&P.onGround&&!wantAds&&P.crouch<.5&&!mouseL&&P.swingT<=0;
   P.ads=approach(P.ads,wantAds?1:0,dt/.17);P.sprintBlend=approach(P.sprintBlend,P.sprinting?1:0,dt/.2);
@@ -2052,6 +2052,7 @@ function placeMenuBot(){B.alive=true;B.pos.set(3.2,0,6.5);B.yaw=.4;BM.root.visib
 /* ================= input ================= */
 addEventListener('keydown',e=>{
   if(['Space','Tab','ArrowUp','ArrowDown'].includes(e.code)&&state!=='menu'&&state!=='over')e.preventDefault();
+  if((e.ctrlKey||e.code==='ControlLeft'||e.code==='ControlRight')&&(state==='playing'||state==='dead'))e.preventDefault();
   if(state==='paused'&&freeLook&&e.code==='Escape'){resume();return;}
   if(state!=='playing'){if(state==='dead')keys[e.code]=true;return;}
   keys[e.code]=true;

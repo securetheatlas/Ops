@@ -19,7 +19,7 @@ A one-map browser FPS drawn in ink. M4, pistol and knife — against an AI rival
 | R | Reload |
 | V | Quick knife |
 | Shift | Sprint |
-| C | Crouch |
+| Ctrl (or C) | Crouch |
 | Space | Jump |
 | Esc | Pause |
 
